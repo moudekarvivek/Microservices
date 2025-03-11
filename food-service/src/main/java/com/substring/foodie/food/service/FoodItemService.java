@@ -2,12 +2,14 @@ package com.substring.foodie.food.service;
 
 import com.substring.foodie.food.dto.FoodCategoryDTO;
 import com.substring.foodie.food.dto.FoodItemDTO;
+import com.substring.foodie.food.dto.RestaurantDto;
 import com.substring.foodie.food.entities.FoodCategory;
 import com.substring.foodie.food.entities.FoodItem;
 import com.substring.foodie.food.repository.FoodCategoryRepo;
 import com.substring.foodie.food.repository.FoodItemRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
 import java.util.UUID;
@@ -17,8 +19,12 @@ import java.util.stream.Collectors;
 public class FoodItemService {
     @Autowired
     private FoodItemRepo foodItemRepo;
+
     @Autowired
     private FoodCategoryRepo foodCategoryRepo;
+
+    @Autowired
+    private RestTemplate restTemplate;
 
     public List<FoodItemDTO> getAllFoodItems() {
         return foodItemRepo.findAll().stream()
@@ -27,9 +33,16 @@ public class FoodItemService {
     }
 
     public FoodItemDTO getFoodItemById(String id) {
-        return foodItemRepo.findById(id)
-                .map(this::convertToDTO)
-                .orElse(null);
+       FoodItem foodItem = foodItemRepo.findById(id).orElseThrow(() -> new RuntimeException("Could not find food with id:" + id));
+        // we will call restaurant service to get restaurant data
+
+        // URL of Restaurant service
+        String restaurantServiceUrl="http://localhost:9091/api/v1/restaurants/" +foodItem.getRestaurantId();
+        //Calling Another Service
+       RestaurantDto restaurantDto = restTemplate.getForObject(restaurantServiceUrl, RestaurantDto.class);
+       FoodItemDTO foodItemDTO = convertToDTO(foodItem);
+       foodItemDTO.setRestaurant(restaurantDto);
+       return foodItemDTO;
     }
 
     public FoodItemDTO createFoodItem(FoodItemDTO foodItemDTO) {
