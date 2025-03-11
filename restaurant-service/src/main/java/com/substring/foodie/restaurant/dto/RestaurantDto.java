@@ -5,6 +5,7 @@ import lombok.Setter;
 
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Setter
@@ -14,7 +15,7 @@ public class RestaurantDto {
     private String name;
     private String address;
     private String phone;
-    private ArrayList<String> pictures = new ArrayList<>();
+    private List<String> pictures = new ArrayList<>();
     //priority 1
     private boolean open = false;
 

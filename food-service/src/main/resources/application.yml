@@ -1,0 +1,17 @@
+spring:
+  application:
+    name: "food-service"
+  datasource:
+    url: jdbc:mysql://localhost:3306/fooddb?useSSL=false&serverTimezone=UTC
+    username: root
+    password: V6@moudekar
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    database-platform: org.hibernate.dialect.MySQLDialect
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+server:
+  port: 9092
+
+

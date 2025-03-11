@@ -1,6 +1,6 @@
 package com.substring.foodie.restaurant.controller;
 
-import com.substring.foodie.restaurant.RestaurantService;
+import com.substring.foodie.restaurant.service.RestaurantService;
 import com.substring.foodie.restaurant.dto.RestaurantDto;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -42,11 +42,11 @@ public class RestaurantController {
         RestaurantDto dto = restaurantService.getById(id);
 
 
-        counter++;
-        if (counter <= 3) {
-            System.out.println("retrying : " + counter);
-            throw new RuntimeException("service down");
-        }
+//        counter++;
+//        if (counter <= 3) {
+//            System.out.println("retrying : " + counter);
+//            throw new RuntimeException("service down");
+//        }
 
         return new ResponseEntity<>(dto, HttpStatus.OK);
     }
