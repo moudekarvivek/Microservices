@@ -12,10 +12,11 @@ import java.util.List;
 @Service
 public class RestWebClientService {
     @Autowired
-    private WebClient webClient;
+    private WebClient.Builder webClientBuilder;
 
     public RestaurantDto getById(String resId) {
-        RestaurantDto restaurantDto= webClient
+        RestaurantDto restaurantDto= webClientBuilder.baseUrl("http://restaurant-service")
+                .build()
                 .get()
                 .uri("/api/v1/restaurants/{id}",resId)
                 .retrieve()
@@ -26,7 +27,8 @@ public class RestWebClientService {
 
     // get all restaurants
     public List<RestaurantDto> getAll() {
-        return webClient
+        return webClientBuilder.baseUrl("http://restaurant-service")
+                .build()
                 .get()
                 .uri("/api/v1/restaurants")
                 .retrieve()
@@ -37,7 +39,8 @@ public class RestWebClientService {
 
     //post request
     public RestaurantDto createRestaurant(RestaurantDto newRestaurant) {
-        return webClient
+        return webClientBuilder.baseUrl("http://restaurant-service")
+                .build()
                 .post()
                 .uri("/api/v1/restaurants")
                 .bodyValue(newRestaurant)
@@ -52,7 +55,8 @@ public class RestWebClientService {
     // get by id
 
     public Mono<RestaurantDto> getResbyId(String restId) {
-        return webClient
+        return webClientBuilder.baseUrl("http://restaurant-service")
+                .build()
                 .get()
                 .uri("/api/v1/restaurants/{id}", restId)
                 .retrieve()
@@ -61,7 +65,9 @@ public class RestWebClientService {
 
 
     public Flux<RestaurantDto> getAllNon() {
-        return webClient.get()
+        return webClientBuilder.baseUrl("http://restaurant-service")
+                .build()
+                .get()
                 .uri("/api/v1/restaurants")
                 .retrieve()
                 .bodyToFlux(RestaurantDto.class);

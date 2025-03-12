@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@FeignClient(name = "restaurant-service",url = "http://localhost:9091")
+@FeignClient(name = "restaurant-service",url = "http://restaurant-service")
 public interface RestaurantService {
 
     //get restaurants with given id:
