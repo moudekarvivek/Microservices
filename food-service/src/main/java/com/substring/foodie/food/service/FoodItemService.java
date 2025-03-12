@@ -7,9 +7,12 @@ import com.substring.foodie.food.entities.FoodCategory;
 import com.substring.foodie.food.entities.FoodItem;
 import com.substring.foodie.food.repository.FoodCategoryRepo;
 import com.substring.foodie.food.repository.FoodItemRepo;
+import com.substring.foodie.food.service.external.RestWebClientService;
+import com.substring.foodie.food.service.external.RestaurantService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.reactive.function.client.WebClient;
 
 import java.util.List;
 import java.util.UUID;
@@ -26,6 +29,12 @@ public class FoodItemService {
     @Autowired
     private RestTemplate restTemplate;
 
+    @Autowired
+    private RestaurantService restaurantService;
+
+    @Autowired
+    private RestWebClientService restWebClientService;
+
     public List<FoodItemDTO> getAllFoodItems() {
         return foodItemRepo.findAll().stream()
                 .map(this::convertToDTO)
@@ -37,9 +46,16 @@ public class FoodItemService {
         // we will call restaurant service to get restaurant data
 
         // URL of Restaurant service
-        String restaurantServiceUrl="http://localhost:9091/api/v1/restaurants/" +foodItem.getRestaurantId();
+//        String restaurantServiceUrl="http://localhost:9091/api/v1/restaurants/" +foodItem.getRestaurantId();
         //Calling Another Service
-       RestaurantDto restaurantDto = restTemplate.getForObject(restaurantServiceUrl, RestaurantDto.class);
+//       RestaurantDto restaurantDto = restTemplate.getForObject(restaurantServiceUrl, RestaurantDto.class);
+
+        //calling restaurant service to get restaurant by id
+//        RestaurantDto restaurantDto = restaurantService.getById(foodItem.getRestaurantId());
+
+      RestaurantDto restaurantDto = restWebClientService.getById(foodItem.getRestaurantId());
+
+
        FoodItemDTO foodItemDTO = convertToDTO(foodItem);
        foodItemDTO.setRestaurant(restaurantDto);
        return foodItemDTO;
