@@ -1,5 +1,6 @@
 package com.substring.foodie.food.service.external;
 
+import com.substring.foodie.food.config.AppConstants;
 import com.substring.foodie.food.dto.RestaurantDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,7 +16,7 @@ public class RestWebClientService {
     private WebClient.Builder webClientBuilder;
 
     public RestaurantDto getById(String resId) {
-        RestaurantDto restaurantDto= webClientBuilder.baseUrl("http://restaurant-service")
+        RestaurantDto restaurantDto= webClientBuilder.baseUrl(AppConstants.RESTAURANT_SERVICE_URL)
                 .build()
                 .get()
                 .uri("/api/v1/restaurants/{id}",resId)
@@ -27,7 +28,7 @@ public class RestWebClientService {
 
     // get all restaurants
     public List<RestaurantDto> getAll() {
-        return webClientBuilder.baseUrl("http://restaurant-service")
+        return webClientBuilder.baseUrl(AppConstants.RESTAURANT_SERVICE_URL)
                 .build()
                 .get()
                 .uri("/api/v1/restaurants")
@@ -39,7 +40,7 @@ public class RestWebClientService {
 
     //post request
     public RestaurantDto createRestaurant(RestaurantDto newRestaurant) {
-        return webClientBuilder.baseUrl("http://restaurant-service")
+        return webClientBuilder.baseUrl(AppConstants.RESTAURANT_SERVICE_URL)
                 .build()
                 .post()
                 .uri("/api/v1/restaurants")
@@ -55,7 +56,7 @@ public class RestWebClientService {
     // get by id
 
     public Mono<RestaurantDto> getResbyId(String restId) {
-        return webClientBuilder.baseUrl("http://restaurant-service")
+        return webClientBuilder.baseUrl(AppConstants.RESTAURANT_SERVICE_URL)
                 .build()
                 .get()
                 .uri("/api/v1/restaurants/{id}", restId)
@@ -65,7 +66,7 @@ public class RestWebClientService {
 
 
     public Flux<RestaurantDto> getAllNon() {
-        return webClientBuilder.baseUrl("http://restaurant-service")
+        return webClientBuilder.baseUrl(AppConstants.RESTAURANT_SERVICE_URL)
                 .build()
                 .get()
                 .uri("/api/v1/restaurants")

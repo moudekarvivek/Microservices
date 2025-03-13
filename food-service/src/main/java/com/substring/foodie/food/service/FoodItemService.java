@@ -47,6 +47,7 @@ public class FoodItemService {
 
         // URL of Restaurant service
 //        String restaurantServiceUrl="http://localhost:9091/api/v1/restaurants/" +foodItem.getRestaurantId();
+
         //Calling Another Service
 //       RestaurantDto restaurantDto = restTemplate.getForObject(restaurantServiceUrl, RestaurantDto.class);
 
