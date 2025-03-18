@@ -7,20 +7,20 @@ spring:
 # For Routing the Request
   cloud:
     gateway:
-      routes:
-        - id: food-service
-          uri: lb://FOOD-SERVICE
-          predicates:
-            - Path=/foods/**
-          filters:
-            - RewritePath=/foods/?(?<remaining>.*) , /$\{remaining}
-
-        - id: restaurant-service
-          uri: lb://RESTAURANT-SERVICE
-          predicates:
-            - Path=/restaurants/**
-          filters:
-            - RewritePath=/restaurants/?(?<remaining>.*) , /$\{remaining}
+#      routes:
+#        - id: food-service
+#          uri: lb://FOOD-SERVICE
+#          predicates:
+#            - Path=/foods/**
+#          filters:
+#            - RewritePath=/foods/?(?<remaining>.*) , /$\{remaining}
+#
+#        - id: restaurant-service
+#          uri: lb://RESTAURANT-SERVICE
+#          predicates:
+#            - Path=/restaurants/**
+#          filters:
+#            - RewritePath=/restaurants/?(?<remaining>.*) , /$\{remaining}
       discovery:
         locator:
           enabled: false
