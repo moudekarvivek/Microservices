@@ -1,0 +1,50 @@
+server:
+  port: 9095
+
+spring:
+  application:
+    name: api-gateway
+# For Routing the Request
+  cloud:
+    gateway:
+      routes:
+        - id: food-service
+          uri: lb://FOOD-SERVICE
+          predicates:
+            - Path=/foods/**
+          filters:
+            - RewritePath=/foods/?(?<remaining>.*) , /$\{remaining}
+
+        - id: restaurant-service
+          uri: lb://RESTAURANT-SERVICE
+          predicates:
+            - Path=/restaurants/**
+          filters:
+            - RewritePath=/restaurants/?(?<remaining>.*) , /$\{remaining}
+      discovery:
+        locator:
+          enabled: false
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+
+management:
+  endpoint:
+    gateway:
+      access: read_only
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  info:
+    env:
+      enabled: true
+
+info:
+  app:
+    name: "Api Gateway"
+    description: "This is api gateway for common entry points"
+    version: "1.0V"
+
