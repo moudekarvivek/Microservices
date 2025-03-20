@@ -1,0 +1,36 @@
+server:
+  port: 9098
+
+info:
+  app:
+    name: "Food Service"
+    description: "This is Food Service for production"
+    version: "1.0 Production"
+
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/fooddb?allowPublicKeyRetrieval=true&useSSL=false&serverTimezone=UTC
+    username: root
+    password: V6@moudekar
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    database-platform: org.hibernate.dialect.MySQLDialect
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+  instance:
+    hostname: localhost
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  info:
+    env:
+      enabled: true

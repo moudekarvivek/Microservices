@@ -1,0 +1,26 @@
+server:
+  port: 9096
+
+spring:
+  application:
+    name: "config-server"
+
+# here native means the configurations are stored in classpath or you can say in file system and the location of it
+  profiles:
+    active: native
+  cloud:
+    server:
+      native:
+        search-location: "classpath:/config"
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+
+# TO include all endpoints in Discovery server to get the logs
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
