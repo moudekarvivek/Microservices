@@ -15,7 +15,7 @@ spring:
 #    show-sql: true
 
   config:
-    import: "optional:configserver:http://localhost:9096/"
+    import: "configserver:http://localhost:9096/"
 
 
 # eureka Configurations

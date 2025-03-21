@@ -7,11 +7,17 @@ spring:
 
 # here native means the configurations are stored in classpath or you can say in file system and the location of it
   profiles:
-    active: native
+#    Configuration source = git
+    active: git
   cloud:
-    server:
-      native:
-        search-location: "classpath:/config"
+    config:
+      server:
+        git:
+          uri: "https://github.com/moudekarvivek/substring-foodie-config.git"
+          default-label: main
+          timeout: 5
+          clone-on-start: true
+          force-pull: true
 
 eureka:
   client:
@@ -24,3 +30,6 @@ management:
     web:
       exposure:
         include: "*"
+
+encrypt:
+  key: "asdecfvjgnugytddcvdjfnkj"
