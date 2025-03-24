@@ -1,1 +1,1 @@
-Developing Microservices for our SubString Foodie Web Applications
+Developing Microservices for our SubString Foodie Web Application
