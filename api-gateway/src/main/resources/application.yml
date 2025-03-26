@@ -24,6 +24,9 @@ spring:
       discovery:
         locator:
           enabled: false
+      httpclient:
+        response-timeout: 5s
+        connect-timeout: 1000
 
 eureka:
   client:
@@ -48,3 +51,11 @@ info:
     description: "This is api gateway for common entry points"
     version: "1.0V"
 
+resilience4j:
+  circuitbreaker:
+    configs:
+      default:
+        sliding-window-size: 10
+        permitted-number-of-calls-in-half-open-state: 2
+        failure-rate-threshold: 50
+        wait-duration-in-open-state: 10000

@@ -15,7 +15,13 @@ public class GatewayConfig {
                 route(
                         "food-service",
                         route -> route.path("/foods/**")
-                                .filters(f->f.rewritePath("/foods/?(?<remaining>.*)","/${remaining}"))
+                                .filters(f->f.rewritePath("/foods/?(?<remaining>.*)","/${remaining}")
+                                        .circuitBreaker(circuitBreakerConfig->
+                                                circuitBreakerConfig.setName("circuitBreakerFood")
+                                                        .setFallbackUri("forward:/circuitBreaker/fallback")
+                                        )
+
+                                )
                                 .uri("lb://food-service")
                 ).route(
                         "restaurant-service",

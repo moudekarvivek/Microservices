@@ -4,6 +4,7 @@ package com.substring.foodie.food.controller;
 import com.substring.foodie.food.dto.FoodCategoryDTO;
 import com.substring.foodie.food.service.FoodCategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.retry.annotation.CircuitBreaker;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -25,6 +26,7 @@ public class FoodCategoryController {
 
 
     @GetMapping("/{id}")
+    @CircuitBreaker
     public FoodCategoryDTO getFoodCategoryById(@PathVariable String id) {
         return foodCategoryService.getFoodCategoryById(id);
     }
